@@ -78,4 +78,3 @@ plan_year <- plan_data %>%
 
 # Save processed data for 2015
 write_rds(plan_year, "data/output/ma_data_2015.rds")
-
