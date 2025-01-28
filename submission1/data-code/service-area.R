@@ -6,9 +6,9 @@ service.year <- NULL # nolint
 
 ## Process each month in 2015
 for (m in monthlist_2015) {
-  ma.path <- paste0("data/input/monthly-ma-contract-service-area/MA_Cnty_SA_",
+  ma_path <- paste0("data/input/monthly-ma-contract-service-area/MA_Cnty_SA_",
                     2015, "_", m, ".csv")
-  service.area <- read_csv(ma.path, skip = 1,
+  service.area <- read_csv(ma_path, skip = 1, # nolint: object_name_linter.
                            col_names = c("contractid", "org_name", "org_type",
                                          "plan_type", "partial", "eghp", "ssa",
                                          "fips", "county", "state", "notes"),
@@ -25,14 +25,14 @@ for (m in monthlist_2015) {
                            na = "*") %>%
     mutate(month = m, year = 2015)
   if (is.null(service.year)) {
-    service.year <- service.area
+    service.year <- service.area # nolint
   } else {
-    service.year <- rbind(service.year, service.area)
+    service.year <- rbind(service.year, service.area) # nolint
   }
 }
 
 ## Fill in missing fips codes and other missing data
-service.year <- service.year %>%
+service.year <- service.year %>% # nolint
   group_by(state, county) %>%
   fill(fips) %>%
   group_by(contractid) %>%
