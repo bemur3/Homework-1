@@ -9,6 +9,8 @@ library(tidyr)
 contract_path <- "data/input/CPSC_Contract_Info_2015_01.csv"
 enrollment_path <- "data/input/CPSC_Enrollment_Info_2015_01.csv"
 
+print(enrollment_path)
+
 # Read contract information for 2015
 contract_info <- read_csv(contract_path,
                           skip = 1,
