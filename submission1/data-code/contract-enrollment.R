@@ -1,3 +1,10 @@
+install.packages("readr")
+install.packages("dplyr")
+install.packages("tidyr")
+
+library(readr)
+library(dplyr)
+library(tidyr)
 # File paths for 2015
 contract_path <- "data/input/CPSC_Contract_Info_2015_01.csv"
 enrollment_path <- "data/input/CPSC_Enrollment_Info_2015_01.csv"
