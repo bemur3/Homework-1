@@ -11,8 +11,6 @@ library(pillar)
 contract_path <- "data/input/CPSC_Contract_Info_2015_01.csv"
 enrollment_path <- "data/input/CPSC_Enrollment_Info_2015_01.csv"
 
-print(enrollment_path)
-
 # Read contract information for 2015
 contract_info <- read_csv(contract_path,
                           skip = 1,
@@ -58,35 +56,19 @@ enroll_info <- read_csv(
     county = col_character(),
     enrollment = col_double()
   ),
-  na = "*"
-)
+  na = "*")
 
 # Merge contract info with enrollment info
 plan_data <- contract_info %>%
   left_join(enroll_info, by = c("contractid", "planid")) %>%
-  mutate(year = 2015)
-
-# Fill missing fips codes by state and county
-plan_data <- plan_data %>%
+  mutate(year = 2015) %>%
   group_by(state, county) %>%
-  fill(fips)
-
-# Fill missing plan characteristics by contract and plan ID
-plan_data <- plan_data %>%
+  fill(fips) %>%
   group_by(contractid, planid) %>%
-  fill(plan_type, partd, snp, eghp, plan_name)
-
-# Fill missing contract characteristics by contract ID
-plan_data <- plan_data %>%
+  fill(plan_type, partd, snp, eghp, plan_name) %>%
   group_by(contractid) %>%
-  fill(org_type, org_name, org_marketing_name, parent_org)
-
-# Collapse from monthly data to yearly
-plan_year <- plan_data %>%
-  group_by(contractid, planid, fips) %>%
-  arrange(contractid, planid, fips) %>%
-  rename(avg_enrollment = enrollment)
+  fill(org_type, org_name, org_marketing_name, parent_org) %>%
 
 # Save processed data for 2015
 write_rds(plan_year, "data/output/ma_data_2015.rds")
-glimpse(plan_year)
+glimpse(contract_info)
