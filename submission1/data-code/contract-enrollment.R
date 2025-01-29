@@ -1,10 +1,12 @@
 install.packages("readr")
 install.packages("dplyr")
 install.packages("tidyr")
+install.packages("pillar")
 
 library(readr)
 library(dplyr)
 library(tidyr)
+library(pillar)
 # File paths for 2015
 contract_path <- "data/input/CPSC_Contract_Info_2015_01.csv"
 enrollment_path <- "data/input/CPSC_Enrollment_Info_2015_01.csv"
@@ -87,3 +89,4 @@ plan_year <- plan_data %>%
 
 # Save processed data for 2015
 write_rds(plan_year, "data/output/ma_data_2015.rds")
+glimpse(plan_year)
