@@ -1,52 +1,33 @@
 library(tidyverse)
 library(readr)
 
-## Initialize an empty data frame to hold the year's data
-service_year <- NULL # nolint
-
-# Define the file path for the specific month and year
-ma_path <- "data/input/MA_Cnty_SA_2015_01.csv"
-
-# Read the CSV file
-service_area <- read_csv(
-  ma_path,
-  skip = 1,
-  col_names = c(
-    "contractid", "org_name", "org_type", "plan_type",
-    "partial", "eghp", "ssa", "fips", "county", "state", "notes"
-  ),
-  col_types = cols(
-    contractid = col_character(),
-    org_name = col_character(),
-    org_type = col_character(),
-    plan_type = col_character(),
-    partial = col_logical(),
-    eghp = col_character(),
-    ssa = col_double(),
-    fips = col_double(),
-    county = col_character(),
-    notes = col_character()
-  ),
-  na = "*")
-problems(service_area)
-
-# Add month and year columns
-service_area <- service_area %>%
-  mutate(month = "01", year = 2015)
-
-## Fill in missing fips codes (by state and county)
-service_area <- service_area %>%
+## Pull service area data by contract/month
+service_area <- read_csv("data/input/monthly-ma-contract-service-area/MA_Cnty_SA_2015_01.csv",skip=1,
+                          col_names=c("contractid","org_name","org_type","plan_type","partial","eghp",
+                                      "ssa","fips","county","state","notes"),
+                          col_types = cols(
+                            contractid = col_character(),
+                            org_name = col_character(),
+                            org_type = col_character(),
+                            plan_type = col_character(),
+                            partial = col_logical(),
+                            eghp = col_character(),
+                            ssa = col_double(),
+                            fips = col_double(),
+                            county = col_character(),
+                            notes = col_character()
+                          ), na='*')
+service_year <- service_area %>%
+  mutate(year=2015) %>%
   group_by(state, county) %>%
   fill(fips) %>%
   group_by(contractid) %>%
   fill(plan_type, partial, eghp, org_type, org_name)
-
-## Collapse to yearly data
+## Collapse to contract/fips/year unit of observation
 service_year <- service_year %>%
   group_by(contractid, fips) %>%
-  mutate(id_count = row_number()) %>%
-  filter(id_count == 1) %>%
+  mutate(id_count=row_number()) %>%
+  filter(id_count==1) %>%
   select(-c(id_count))
 
-## Save th processed 2015 data
-write_rds(service_area, "data/output/contract_data.rds")
+write_rds(service_year,"data/output/service_area.rds")
