@@ -2,8 +2,8 @@ if(!require("pacman")) install.packages("pacman")
 pacman::p_load(tidyverse, ggplot2, dplyr, lubridate, readxl, data.table, gdata, scales)
 
 #Read data and set workspace for knitr
-full_ma_data <- readRDS("data/output/ma_data.rds")
-contract_service_area <- readRDS("data/output/contract_data.rds")
+full_ma_data <- readRDS("data/output/ma_data_2015.rds")
+contract_service_area <- readRDS("data/output/service_area.rds")
 
 #objects for markdown
 plan_type_table <- full_ma_data %>% group_by(plan_type) %>% count() %>% arrange(-n)
