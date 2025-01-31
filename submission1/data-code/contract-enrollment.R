@@ -62,7 +62,7 @@ plan_data <- contract_info %>%
   group_by(contractid, planid) %>%
   fill(plan_type, partd, snp, eghp, plan_name) %>%
   group_by(contractid) %>%
-  fill(org_type, org_name, org_marketing_name, parent_org) %>%
+  fill(org_type, org_name, org_marketing_name, parent_org)
 
 # Save processed data for 2015
-write_rds(plan_data, "data/output/ma_data_2015.rds")
+write_rds(plan_data, "data/output/ma_data_2015.rds", compress = "xz")
