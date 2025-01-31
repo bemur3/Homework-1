@@ -1,8 +1,3 @@
-install.packages("readr")
-install.packages("dplyr")
-install.packages("tidyr")
-install.packages("pillar")
-
 library(readr)
 library(dplyr)
 library(tidyr)
@@ -70,5 +65,4 @@ plan_data <- contract_info %>%
   fill(org_type, org_name, org_marketing_name, parent_org) %>%
 
 # Save processed data for 2015
-write_rds(plan_year, "data/output/ma_data_2015.rds")
-glimpse(contract_info)
+write_rds(plan_data, "data/output/ma_data_2015.rds")
