@@ -22,12 +22,15 @@ pacman::p_load(tidyverse, ggplot2, dplyr, lubridate, readr, readxl, hrbrthemes, 
                kableExtra)
 ```
 
+
 ```{r}
 #| include: false
 #| eval: true
  
 load("Hwk1_workspace.Rdata")
 ```
+
+
 
 
 
