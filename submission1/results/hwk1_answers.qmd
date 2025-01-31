@@ -26,8 +26,8 @@ pacman::p_load(tidyverse, ggplot2, dplyr, lubridate, readr, readxl, hrbrthemes, 
 ```{r}
 #| include: false
 #| eval: true
- 
-load("submission1/Hwk1_workspace.Rdata")
+getwd()
+load("/Users/ethanmurakami/Documents/GitHub/Homework-1/submission1/Hwk1_workspace.Rdata")
 ```
 
 
@@ -41,9 +41,7 @@ My answers to the homework questions are described below.
 # Building the Data
 Answer the following based on our initial, simplified dataset of enrollments, plan types, and service areas:
 
-\noindent 1. Provide a table of the count of plans under each plan type in each year.<br>
-
-See @tbl-plans.
+\noindent 1. Provide a table of the count of plans under each plan type in each year. See @tbl-plans.
 
 ```{r} 
 #| echo: false
