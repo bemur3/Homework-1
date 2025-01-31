@@ -18,10 +18,10 @@ plan_type_year2 <- final_plans %>% group_by(plan_type) %>% count() %>% arrange(-
 plan_type_enroll <- final_plans %>% group_by(plan_type) %>% summarise(n=n(), enrollment=mean(enrollment, na_rm=TRUE)) %>% arrange(-enrollment)
 
 final_data <- final_plans %>%
-inner_join(contract_service_area %>%
-select(contractid, fips, year)
-by=c("contractid", "fips", "year")) %>% # nolint
-filter(!is_na(enrollment))
+  inner_join(contract_service_area %>%
+    select(contractid, fips, year),
+    by = c("contractid" = "fips", "year")) %>%
+  filter(!is.na(enrollment))
 
 rm(list=c("full_ma_data", "contract_service_area", "final_data"))
 save.image("submission1/Hwk1_workspace.RData")
