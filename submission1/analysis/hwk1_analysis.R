@@ -12,10 +12,11 @@ plan_type_year1 <- full_ma_data %>% group_by(plan_type) %>% count() %>% arrange(
 
 final_plans <- full_ma_data %>%
 filter(snp == "No" & eghp == "No" &
-(planid < 800 | planid > 900))
+(planid < 800 | planid >= 900))
+
 plan_type_year2 <- final_plans %>% group_by(plan_type) %>% count() %>% arrange(-n) 
 
-plan_type_enroll <- final_plans %>% group_by(plan_type) %>% summarise(n=n(), enrollment=mean(enrollment, na_rm=TRUE)) %>% arrange(-enrollment)
+plan_type_enroll <- final_plans %>% group_by(plan_type) %>% summarise(n=n(), enrollment=mean(enrollment, na_rm=TRUE)) %>% arrange(-n)
 
 final_data <- final_plans %>%
   inner_join(contract_service_area %>%
