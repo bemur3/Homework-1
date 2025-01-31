@@ -6,7 +6,7 @@ full_ma_data <- readRDS("data/output/ma_data.rds")
 contract_service_area <- readRDS("data/output/contract_data.rds")
 
 #objects for markdown
-plant_type_table <- full_ma_data %>% group_by(plan_type) %>% count() %>% arrange(-n)
+plan_type_table <- full_ma_data %>% group_by(plan_type) %>% count() %>% arrange(-n)
 tot_obs <- as.numeric(count(full_ma_data %>% ungroup()))
 plan_type_year1 <- full_ma_data %>% group_by(plan_type) %>% count() %>% arrange(-n) %>% filter(plan_type!="NA")
 
@@ -15,12 +15,12 @@ filter(snp == "No" & eghp == "No" &
 (planid < 800 | planid > 900))
 plan_type_year2 <- final_plans %>% group_by(plan_type) %>% count() %>% arrange(-n) 
 
-plant_type_enroll <- final_plans %>% group_by(plan_type) %>% summarise(n=n(), enrollment=mean(enrollment, na_rm=TRUE)) %>% arrange(-enrollment)
+plan_type_enroll <- final_plans %>% group_by(plan_type) %>% summarise(n=n(), enrollment=mean(enrollment, na_rm=TRUE)) %>% arrange(-enrollment)
 
 final_data <- final_plans %>%
 inner_join(contract_service_area %>%
 select(contractid, fips, year)
-by=c("contractid", "fips", "year")) %>%
+by=c("contractid", "fips", "year")) %>% # nolint
 filter(!is_na(enrollment))
 
 rm(list=c("full_ma_data", "contract_service_area", "final_data"))

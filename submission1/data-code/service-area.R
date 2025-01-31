@@ -2,7 +2,7 @@ library(tidyverse)
 library(readr)
 
 ## Pull service area data by contract/month
-service_area <- read_csv("data/input/monthly-ma-contract-service-area/MA_Cnty_SA_2015_01.csv",skip=1,
+service_area <- read_csv("data/input/MA_Cnty_SA_2015_01.csv",skip=1,
                           col_names=c("contractid","org_name","org_type","plan_type","partial","eghp",
                                       "ssa","fips","county","state","notes"),
                           col_types = cols(
